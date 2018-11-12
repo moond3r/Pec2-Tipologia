@@ -4,12 +4,14 @@ import csv
 import argparse
 from bs4 import BeautifulSoup
 
-def grabarArchivo(filePath,tablaProducto):
-  with open(filePath, 'w', newline='') as csvFile:
+# Funcion para grabar archivo
+def grabarArchivo(archivo,tablaProducto):
+  with open(archivo, 'w', newline='') as csvFile:
     writer = csv.writer(csvFile)
     for linea in tablaProducto:
       writer.writerow(linea)
   return
+# funcion para consular productos
 def consultaDisponibilidad(url,palabraClave,tablaProducto):
     #response = requests.get(url+palabraClave)
 
@@ -38,9 +40,9 @@ def consultaDisponibilidad(url,palabraClave,tablaProducto):
             producto = []
     return
 #Current directory where is located the script
-currentDir = os.path.dirname(__file__)
-filename = "dataset.csv"
-filePath = os.path.join(currentDir, filename)
+dir_dataset = os.path.dirname(__file__)
+dataset = "dataset.csv"
+archivo_dataset = os.path.join(dir_dataset, dataset)
 url="http://buscador.tecnomega.com/index.php?buscar="
 print("¿Producto que desea buscar?")
 palabraClave = input()
@@ -48,6 +50,6 @@ tablaProducto = []
 atributos = ["Codigo articulo","Descripcion articulo","Stock principal","Stock colon","Stock sur","Stock gye norte","Stock gye sur","Precio","Promociones"]
 tablaProducto.append(atributos)
 consultaDisponibilidad(url,palabraClave,tablaProducto)
-grabarArchivo(filePath,tablaProducto)
+grabarArchivo(archivo_dataset,tablaProducto)
 
 print("termino FIN")
